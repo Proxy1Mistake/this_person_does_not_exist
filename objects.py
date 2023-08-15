@@ -1,4 +1,4 @@
-class new:
+class New:
     def __init__(self, data):
         self.json = data
         self.generated = None
@@ -8,8 +8,10 @@ class new:
 
     @property
     def new(self):
-        self.generated = self.json['generated']
-        self.scheme = self.json['scheme']
-        self.src = self.json['src']
-        self.name = self.json['name']
+        try:
+            self.generated = self.json['generated']
+            self.scheme = self.json['scheme']
+            self.src = self.json['src']
+            self.name = self.json['name']
+        except(KeyError, TypeError): pass
         return self
