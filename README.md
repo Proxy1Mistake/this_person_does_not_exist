@@ -8,7 +8,7 @@
 
 ```
 from this_person_does_not_exist import this_person_does_not_exist
-this_person_does_not_exist = this_person_does_not_exist()
+this_person_does_not_exist = ThisPersonDoesNotExist()
 name = this_person_does_not_exist.new().name
 this_person_does_not_exist.get_img(name = name)
 ```
