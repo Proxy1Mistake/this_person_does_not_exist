@@ -1,13 +1,9 @@
 from requests import Session
-from fake_useragent import FakeUserAgent
 from time import time
 
 from .objects import *
 
 class Data:
-    _headers = {
-        'user-agent': FakeUserAgent().random
-    }
     _get = Session().get
     _url = 'https://this-person-does-not-exist.com/{}'.format
 
@@ -25,7 +21,7 @@ class ThisPersonDoesNotExist(Data):
 
         :return: integer or info image to json
         """
-        _req = cls._get(url = cls._url(f'new?time={int(time().real)}&gender={gender}&age={age}&etnic={ethnicity}'), headers = cls._headers)
+        _req = cls._get(url = cls._url(f'new?time={int(time().real)}&gender={gender}&age={age}&etnic={ethnicity}'))
         return _req.status_code if _req.status_code != 200 else New(**_req.json())
 
     @classmethod
@@ -37,7 +33,7 @@ class ThisPersonDoesNotExist(Data):
 
         :return: images
         """
-        req = cls._get(url = cls._url(f'img/{name}'), headers = cls._headers)
+        req = cls._get(url = cls._url(f'img/{name}'))
         with open(file = f'{name}.jpg', mode = 'wb') as record_file:
-            record_file.write(s = req.content)
+            record_file.write(req.content)
             record_file.close()
