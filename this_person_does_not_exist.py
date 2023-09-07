@@ -10,7 +10,6 @@ class Data:
     }
     _get = Session().get
     _url = 'https://this-person-does-not-exist.com/{}'.format
-    _time = int(time().real)
 
 class ThisPersonDoesNotExist(Data):
     @classmethod
@@ -26,7 +25,7 @@ class ThisPersonDoesNotExist(Data):
 
         :return: integer or info image to json
         """
-        _req = cls._get(url = cls._url(f'new?time={cls._time}&gender={gender}&age={age}&etnic={ethnicity}'), headers = cls._headers)
+        _req = cls._get(url = cls._url(f'new?time={int(time().real)}&gender={gender}&age={age}&etnic={ethnicity}'), headers = cls._headers)
         return _req.status_code if _req.status_code != 200 else New(**_req.json())
 
     @classmethod
