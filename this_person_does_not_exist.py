@@ -1,4 +1,3 @@
-from random import choices, randint
 from requests import Session
 from fake_useragent import FakeUserAgent
 from time import time
@@ -9,13 +8,13 @@ class Data:
     _headers = {
         'user-agent': FakeUserAgent().random
     }
-    _session = Session()
+    _get = Session().get
     _url = 'https://this-person-does-not-exist.com/{}'.format
     _time = int(time().real)
 
 class ThisPersonDoesNotExist(Data):
     @classmethod
-    def new(cls, gender: str = None, age: str = None, ethnicity: str = None) -> New | int:
+    def new(cls, gender: str = 'all', age: str = 'all', ethnicity: str = 'all') -> New | int:
         """
         this this function is designed to generate
 
@@ -27,12 +26,8 @@ class ThisPersonDoesNotExist(Data):
 
         :return: integer or info image to json
         """
-        _gender = gender if gender else 'all'
-        _age = age if age else 'all'
-        _ethnicity = ethnicity if ethnicity else 'all'
-        _req = cls._session.get(url = cls._url(f'new?time={cls._time}&gender={_gender}&age={_age}&etnic={_ethnicity}'), headers = cls._headers)
-        if _req.status_code == 200: return New(data = _req.json()).new
-        else: return _req.status_code
+        _req = cls._get(url = cls._url(f'new?time={cls._time}&gender={gender}&age={age}&etnic={ethnicity}'), headers = cls._headers)
+        return _req.status_code if _req.status_code != 200 else New(**_req.json())
 
     @classmethod
     def get_img(cls, name: str) -> bytes:
