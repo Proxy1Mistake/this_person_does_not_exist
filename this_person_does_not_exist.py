@@ -37,7 +37,7 @@ class ThisPersonDoesNotExist(Data):
 
         :return: images
         """
-        req = cls._session.get(url = cls._url(f'img/{name}'), headers = cls._headers)
-        img = open(f'{name}.jpg', 'wb')
-        img.write(req.content)
-        img.close()
+        req = cls._get(url = cls._url(f'img/{name}'), headers = cls._headers)
+        with open(f'{name}.jpg', mode = 'wb') as record_file:
+            record_file.write(s = req.content)
+            record_file.close()
