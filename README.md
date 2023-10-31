@@ -23,4 +23,3 @@ this_person_does_not_exist.get_img(name = name)
 <img src = "https://img.shields.io/badge/ᴅɪsᴄᴏʀᴅ-92000a?logo=discord&logoColor=FFFFFF&labelColor=000000">
 </br>
 </details>
-
